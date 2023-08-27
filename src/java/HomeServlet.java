@@ -5,20 +5,19 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 public class HomeServlet extends HttpServlet
-{
+{   
     public void doGet(HttpServletRequest req,HttpServletResponse res)throws IOException,ServletException
     {
-        PrintWriter out = res.getWriter();
         
     }
-    
     public void doPost(HttpServletRequest req,HttpServletResponse res)throws IOException,ServletException
     {
-        PrintWriter out = res.getWriter(); 
-        String name = req.getParameter("name");
-        out.println("<h1>Welcome "+name+"</h1>");
+        PrintWriter out = res.getWriter();
+        HttpSession session = req.getSession();
+        out.println("<h1>Hello "+(String)(session.getAttribute("name"))+"</h1>");
     }
 }

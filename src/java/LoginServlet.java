@@ -7,32 +7,32 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 
 public class LoginServlet extends HttpServlet
 {
+    public void doGet(HttpServletRequest req,HttpServletResponse res)throws IOException,ServletException
+    {
+        
+    }
     public void doPost(HttpServletRequest req,HttpServletResponse res)throws IOException,ServletException
     {
         PrintWriter out = res.getWriter();
         String name = req.getParameter("name");
         String password = req.getParameter("pass");
-        req.setAttribute("name",name);
+        HttpSession session = req.getSession();
+        session.setAttribute("name",name);
+        session.setAttribute("pass", password);
         if(name.equals("Admin") && password.equals("12345"))
         {
-            out.println("Welcome");
-            RequestDispatcher rd = req.getRequestDispatcher("HomeServlet");
-            rd.forward(req, res);
+           RequestDispatcher rd = req.getRequestDispatcher("HomeServlet");
+           rd.forward(req,res);
         }
         else
         {
-            out.println("<h1>Wrong Username or Password</h1>");
-        }
-         
-    }
-    
-    public void doGet(HttpServletRequest req,HttpServletResponse res)throws IOException,ServletException
-    {
-        PrintWriter out = res.getWriter(); 
+           out.println("Wrong Username or Password");
+        }   
     }
 }
